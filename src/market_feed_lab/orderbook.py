@@ -21,6 +21,11 @@ class FeedState:
         self.last_sequence = sequence
         self.valid = True
 
+    def invalidate(self) -> None:
+        if self.valid:
+            self.valid = False
+            self.invalidations += 1
+
     def apply_update(self, sequence: int) -> ApplyResult:
         if not self.valid or self.last_sequence is None:
             return ApplyResult.INVALID_STATE
